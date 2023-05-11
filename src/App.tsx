@@ -1,11 +1,12 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import { Login, Home, Profile } from "./pages/index";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { themeSettings } from "./theme";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import { Home, Login, Profile } from "./pages/index";
 import { selectIsAuth, selectMode } from "./store/selectors";
+import { themeSettings } from "./theme";
 
 function App() {
   const mode = useSelector(selectMode);
@@ -18,20 +19,20 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            {!isAuth ?
-            <Route path="/" element={<Login />} />
-            :
-            <>
-            <Route
-              path="/home"
-              element={isAuth ? <Home /> : <Navigate to="/" />}
-            />
-            <Route
-              path="/profile/:userId"
-              element={isAuth ? <Profile /> : <Navigate to="/" />}
-            />
-            </>
-            }
+            {!isAuth ? (
+              <Route path="/" element={<Login />} />
+            ) : (
+              <>
+                <Route
+                  path="/home"
+                  element={isAuth ? <Home /> : <Navigate to="/" />}
+                />
+                <Route
+                  path="/profile/:userId"
+                  element={isAuth ? <Profile /> : <Navigate to="/" />}
+                />
+              </>
+            )}
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

@@ -1,11 +1,12 @@
 import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
-import User from "../../components/User";
-import Posts from "../../components/Posts";
-import Navbar from "../../components/Navbar";
-import MyPost from "../../components/MyPost";
+
 import FriendList from "../../components/FriendList";
-import { selectUser } from "store/selectors";
+import MyPost from "../../components/MyPost";
+import Navbar from "../../components/Navbar";
+import Posts from "../../components/Posts";
+import User from "../../components/User";
+import { selectUser } from "../../store/selectors";
 
 export const Home = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");

@@ -2,12 +2,13 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-import User from "../../components/User";
+
 import FriendList from "../../components/FriendList";
 import MyPost from "../../components/MyPost";
+import Navbar from "../../components/Navbar";
 import Posts from "../../components/Posts";
-import { selectIsAuth } from "store/selectors";
+import User from "../../components/User";
+import { selectIsAuth } from "../../store/selectors";
 
 export const Profile = () => {
   const [user, setUser] = useState(null);

@@ -1,6 +1,11 @@
 import { Box } from "@mui/material";
 
-const UserImage = ({ image, size = "60px" }) => {
+type Props = {
+  image: string;
+  size: string;
+};
+
+const UserImage = ({ image, size = "60px" }: Props) => {
   return (
     <Box width={size} height={size}>
       <img

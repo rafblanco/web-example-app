@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../types/IUser";
+
 import { IPost } from "../types/IPost";
 import { ITheme } from "../types/ITheme";
+import { IUser } from "../types/IUser";
 
 export interface AuthSliceState {
-    mode: ITheme,
-    user: IUser,
-    token?: unknown,
-    posts: IPost[],
+  mode: ITheme;
+  user: IUser;
+  token?: unknown;
+  posts: IPost[];
 }
 const initialState: AuthSliceState = {
   mode: ITheme.light,

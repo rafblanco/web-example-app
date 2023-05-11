@@ -1,4 +1,5 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+
 import LoginForm from "./components/LoginForm";
 
 export const Login = () => {
@@ -13,7 +14,7 @@ export const Login = () => {
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
-            Social App
+          Social App
         </Typography>
       </Box>
 

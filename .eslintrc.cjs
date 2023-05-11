@@ -1,45 +1,51 @@
 module.exports = {
-  extends: [
-    "airbnb",
-    "airbnb-typescript",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:typescript/recommended",
-    "prettier/react",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "prettier",
-  ],
-  plugins: ["react", "@typescript-eslint"],
+  root: true,
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
+    "import/resolver": {
+      node: {
+        paths: ["src"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
+  },
   env: {
     browser: true,
-    es2021: true,
+    amd: true,
+    node: true,
   },
-  globals: {
-    Atomics: "readonly",
-    SharedArrayBuffer: "readonly",
-  },
-  parserOptions: {
-    project: './tsconfig.eslint.json'
-  },
-  parser: "@typescript-eslint/parser",
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended", // Make sure this is always the last element in the array.
+  ],
+  plugins: ["simple-import-sort", "prettier"],
   rules: {
-    "linebreak-style": "off",
-    "no-underscore-dangle": "off",
-    "@typescript-eslint/no-shadow": "off",
-    "import/prefer-default-export": "off",
-    "react-hooks/exhaustive-deps": "off",
-    "no-param-reassign": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "react/no-unused-prop-types": "off",
-    "react/require-default-props": "off",
-    "import/no-cycle": "off",
-    "consistent-return": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "import/no-extraneous-dependencies": "off",
-    "prettier/prettier": [
-      "warn",
+    "prettier/prettier": ["error", {}, { usePrettierrc: true }],
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/accessible-emoji": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
       {
-        endOfLine: "auto",
+        components: ["Link"],
+        specialLink: ["hrefLeft", "hrefRight"],
+        aspects: ["invalidHref", "preferButton"],
       },
     ],
   },

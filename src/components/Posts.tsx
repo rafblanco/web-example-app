@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IPost } from "../types/IPost";
-import Post from "./Post";
+
 import { setPosts } from "../store/authSlice";
 import { selectIsAuth, selectPosts } from "../store/selectors";
+import { IPost } from "../types/IPost";
+import Post from "./Post";
 
 type Props = {
-  userId?: number,
-  isProfile?: boolean
-}
+  userId?: number;
+  isProfile?: boolean;
+};
 
 const Posts = ({ userId, isProfile = false }: Props) => {
   const dispatch = useDispatch();

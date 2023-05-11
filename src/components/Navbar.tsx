@@ -1,30 +1,31 @@
-import { useState } from "react";
+import {
+  Close,
+  DarkMode,
+  Help,
+  LightMode,
+  Menu,
+  Message,
+  Notifications,
+  Search,
+} from "@mui/icons-material";
 import {
   Box,
+  FormControl,
   IconButton,
   InputBase,
-  Typography,
-  Select,
   MenuItem,
-  FormControl,
-  useTheme,
+  Select,
+  Typography,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import {
-  Search,
-  Message,
-  DarkMode,
-  LightMode,
-  Notifications,
-  Help,
-  Menu,
-  Close,
-} from "@mui/icons-material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTheme, setLogout } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
-import FlexBetween from "./FlexBetween";
+
+import { setLogout, setTheme } from "../store/authSlice";
 import { selectUser } from "../store/selectors";
+import FlexBetween from "./FlexBetween";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);

@@ -1,18 +1,19 @@
-import { useState } from "react";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import {
   Box,
   Button,
   TextField,
-  useMediaQuery,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
-import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import Dropzone from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+
 import FlexBetween from "../../../components/FlexBetween";
 import { setLogin } from "../../../store/authSlice";
 
@@ -31,18 +32,18 @@ const loginSchema = yup.object().shape({
 });
 
 type IUserValues = {
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  location: string,
-  picture: string,
-}
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  location: string;
+  picture: string;
+};
 
 type ILoginValues = {
-  email: string,
-  password: string,
-}
+  email: string;
+  password: string;
+};
 
 const initialValuesRegister: IUserValues = {
   firstName: "",
@@ -70,7 +71,7 @@ const LoginForm = () => {
   const register = async (values: IUserValues, onSubmitProps: any) => {
     // this allows us to send form info with image
     const formData = new FormData();
-    for (let value in values) {
+    for (const value in values) {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);

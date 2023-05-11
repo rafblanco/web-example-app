@@ -1,15 +1,16 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import Friend from "./Friend";
-import Wrapper from "./Wrapper";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IUser } from "../types/IUser";
-import { selectFriends, selectIsAuth } from "../store/selectors";
+
 import { setFriends } from "../store/authSlice";
+import { selectFriends, selectIsAuth } from "../store/selectors";
+import { IUser } from "../types/IUser";
+import Friend from "./Friend";
+import Wrapper from "./Wrapper";
 
 type Props = {
-    userId?: number,
-}
+  userId?: number;
+};
 
 const FriendList = ({ userId }: Props) => {
   const dispatch = useDispatch();
