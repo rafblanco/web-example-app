@@ -1,12 +1,9 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import { Login, Home, Profile } from "./pages/index";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-
 import { themeSettings } from "./theme";
 import { selectIsAuth, selectMode } from "./store/selectors";
 

@@ -5,10 +5,11 @@ import Posts from "../../components/Posts";
 import Navbar from "../../components/Navbar";
 import MyPost from "../../components/MyPost";
 import FriendList from "../../components/FriendList";
+import { selectUser } from "store/selectors";
 
-const Home = () => {
+export const Home = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { _id, picturePath } = useSelector((state) => state.user);
+  const { _id, picturePath } = useSelector(selectUser);
 
   return (
     <Box>
@@ -40,5 +41,3 @@ const Home = () => {
     </Box>
   );
 };
-
-export default Home;

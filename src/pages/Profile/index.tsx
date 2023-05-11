@@ -7,11 +7,12 @@ import User from "../../components/User";
 import FriendList from "../../components/FriendList";
 import MyPost from "../../components/MyPost";
 import Posts from "../../components/Posts";
+import { selectIsAuth } from "store/selectors";
 
-const Profile = () => {
+export const Profile = () => {
   const [user, setUser] = useState(null);
   const { userId } = useParams();
-  const token = useSelector((state) => state.token);
+  const token = useSelector(selectIsAuth);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
@@ -56,5 +57,3 @@ const Profile = () => {
     </Box>
   );
 };
-
-export default Profile;

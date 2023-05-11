@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import LoginForm from "./components/LoginForm";
 
-const Login = () => {
+export const Login = () => {
   const theme = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   return (
@@ -32,5 +32,3 @@ const Login = () => {
     </Box>
   );
 };
-
-export default Login;
