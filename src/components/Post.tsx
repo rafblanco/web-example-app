@@ -15,8 +15,8 @@ import Friend from "./Friend";
 import Wrapper from "./Wrapper";
 
 type Props = {
-  postId: number;
-  postUserId: number;
+  postId: string;
+  postUserId: string;
   name: string;
   description: string;
   location: string;
@@ -31,7 +31,6 @@ const Post = ({
   postUserId,
   name,
   description,
-  location,
   picturePath,
   userPicturePath,
   likes,
@@ -40,7 +39,7 @@ const Post = ({
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector(selectIsAuth);
-  const { _id: loggedInUserId } = useSelector(selectUser);
+  const { id: loggedInUserId } = useSelector(selectUser);
   const isLiked = Boolean(likes?.[loggedInUserId!]) ?? false;
   const likeCount = Object.keys(likes).length;
 

@@ -1,9 +1,9 @@
 export interface IPost {
-  _id: number;
-  userId: number;
+  id: string;
+  userId: string;
   firstName: string;
   lastName: string;
-  postUserId: number;
+  postUserId: string;
   description: string;
   location: string;
   picturePath: string;

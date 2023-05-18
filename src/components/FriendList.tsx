@@ -1,38 +1,28 @@
+import { useAuth } from "@clerk/clerk-react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setFriends } from "../store/authSlice";
-import { selectFriends, selectIsAuth } from "../store/selectors";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { fetchFriends } from "../store/authActions";
+import { selectFriends } from "../store/selectors";
 import { IUser } from "../types/IUser";
 import Friend from "./Friend";
 import Wrapper from "./Wrapper";
 
-type Props = {
-  userId?: number;
-};
-
-const FriendList = ({ userId }: Props) => {
-  const dispatch = useDispatch();
+const FriendList = () => {
+  const dispatch = useAppDispatch();
   const { palette } = useTheme();
-  const token = useSelector(selectIsAuth);
   const friends = useSelector(selectFriends);
+  const { isLoaded, userId } = useAuth();
 
-  const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
-  };
+  if (!isLoaded || !userId) {
+    return null;
+  }
 
   useEffect(() => {
-    getFriends();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(fetchFriends(userId));
+  }, []);
 
   return (
     <Wrapper>
@@ -47,8 +37,8 @@ const FriendList = ({ userId }: Props) => {
       <Box display="flex" flexDirection="column" gap="1.5rem">
         {friends?.map((friend: IUser) => (
           <Friend
-            key={friend._id}
-            friendId={friend._id}
+            key={friend.id}
+            friendId={friend.id}
             name={`${friend.firstName} ${friend.lastName}`}
             userPicturePath={friend.picturePath}
           />

@@ -1,3 +1,4 @@
+import { useAuth } from "@clerk/clerk-react";
 import {
   AttachFileOutlined,
   DeleteOutlined,
@@ -23,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setPosts } from "../store/authSlice";
 import { selectIsAuth, selectUser } from "../store/selectors";
+import { IPost } from "../types/IPost";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import Wrapper from "./Wrapper";
@@ -37,15 +39,19 @@ const MyPost = ({ picturePath }: Props) => {
   const [image, setImage] = useState<any>(null);
   const [post, setPost] = useState("");
   const { palette } = useTheme();
-  const { _id } = useSelector(selectUser);
   const token = useSelector(selectIsAuth);
+  const { isLoaded, userId, getToken } = useAuth();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
+  if (!isLoaded || !userId) {
+    return null;
+  }
+
   const handlePost = async () => {
     const formData = new FormData();
-    formData.append("userId", _id);
+    formData.append("userId", userId);
     formData.append("description", post);
     if (image) {
       formData.append("picture", image);
@@ -57,8 +63,10 @@ const MyPost = ({ picturePath }: Props) => {
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
-    const posts = await response.json();
-    dispatch(setPosts({ posts }));
+    const posts: IPost[] = await response.json();
+    if (!posts) return false;
+
+    dispatch(setPosts(posts));
     setImage(null);
     setPost("");
   };
@@ -73,7 +81,7 @@ const MyPost = ({ picturePath }: Props) => {
           value={post}
           sx={{
             width: "100%",
-            backgroundColor: palette.neutral.light,
+            backgroundColor: palette.background.default,
             borderRadius: "2rem",
             padding: "1rem 2rem",
           }}

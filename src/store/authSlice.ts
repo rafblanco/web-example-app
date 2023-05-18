@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { IFriend } from "../types/IFriend";
 import { IPost } from "../types/IPost";
 import { ITheme } from "../types/ITheme";
 import { IUser } from "../types/IUser";
@@ -7,12 +8,14 @@ import { IUser } from "../types/IUser";
 export interface AuthSliceState {
   mode: ITheme;
   user: IUser;
+  friends: IFriend[];
   token?: unknown;
   posts: IPost[];
 }
 const initialState: AuthSliceState = {
   mode: ITheme.light,
   user: {},
+  friends: [],
   token: null,
   posts: [],
 };
@@ -32,19 +35,18 @@ export const authSlice = createSlice({
       state.user = {};
       state.token = null;
     },
-    setFriends: (state, action) => {
-      if (state.user) {
-        state.user.friends = action.payload.friends;
-      } else {
-        console.error("user friends non-existent :(");
-      }
+    setUser: (state, { payload }: PayloadAction<IUser>) => {
+      state.user = payload;
     },
-    setPosts: (state, action) => {
-      state.posts = action.payload.posts;
+    setFriends: (state, { payload }: PayloadAction<IFriend[]>) => {
+      state.friends = payload;
+    },
+    setPosts: (state, { payload }: PayloadAction<IPost[]>) => {
+      state.posts = payload;
     },
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {
-        if (post._id === action.payload.post._id) return action.payload.post;
+        if (post.id === action.payload.post.id) return action.payload.post;
         return post;
       });
       state.posts = updatedPosts;
@@ -52,6 +54,13 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setTheme, setLogin, setLogout, setFriends, setPosts, setPost } =
-  authSlice.actions;
+export const {
+  setTheme,
+  setLogin,
+  setLogout,
+  setUser,
+  setFriends,
+  setPosts,
+  setPost,
+} = authSlice.actions;
 export const { reducer } = authSlice;

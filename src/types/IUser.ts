@@ -1,5 +1,5 @@
 export interface IUser {
-  _id?: number;
+  id?: string;
   username?: string;
   password?: string;
   phone_number?: string;
@@ -9,4 +9,5 @@ export interface IUser {
   lastName?: string;
   friends?: IUser[];
   picturePath?: string;
+  viewedProfile?: number;
 }

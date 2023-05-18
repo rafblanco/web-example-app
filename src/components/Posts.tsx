@@ -1,55 +1,34 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { setPosts } from "../store/authSlice";
-import { selectIsAuth, selectPosts } from "../store/selectors";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { fetchPosts } from "../store/authActions";
+import { selectPosts } from "../store/selectors";
 import { IPost } from "../types/IPost";
 import Post from "./Post";
 
 type Props = {
-  userId?: number;
+  userId?: string;
   isProfile?: boolean;
 };
 
 const Posts = ({ userId, isProfile = false }: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const posts = useSelector(selectPosts);
-  const token = useSelector(selectIsAuth);
-
-  const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
-  };
-
-  const getUserPosts = async () => {
-    const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    const data = await response.json();
-    dispatch(setPosts({ posts: data }));
-  };
 
   useEffect(() => {
-    if (isProfile) {
-      getUserPosts();
-    } else {
-      getPosts();
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // if (isProfile) {
+    //   getUserPosts();
+    // } else {
+    dispatch(fetchPosts());
+    // }
+  }, []);
 
   return (
     <>
       {posts.map(
         ({
-          _id,
+          id,
           userId,
           firstName,
           lastName,
@@ -61,8 +40,8 @@ const Posts = ({ userId, isProfile = false }: Props) => {
           comments,
         }: IPost) => (
           <Post
-            key={_id}
-            postId={_id}
+            key={id}
+            postId={id}
             postUserId={userId}
             name={`${firstName} ${lastName}`}
             description={description}

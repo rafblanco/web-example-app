@@ -10,7 +10,7 @@ import { selectUser } from "../../store/selectors";
 
 export const Home = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const { _id, picturePath } = useSelector(selectUser);
+  const { id, picturePath } = useSelector(selectUser);
 
   return (
     <Box>
@@ -23,19 +23,19 @@ export const Home = () => {
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <User userId={_id} picturePath={picturePath} />
+          <User userId={id} picturePath={picturePath} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <MyPost picturePath={picturePath} />
-          <Posts userId={_id} />
+          <Posts userId={id} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             <Box m="2rem 0" />
-            <FriendList userId={_id} />
+            <FriendList />
           </Box>
         )}
       </Box>

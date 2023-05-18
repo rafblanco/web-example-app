@@ -9,9 +9,10 @@ import Navbar from "../../components/Navbar";
 import Posts from "../../components/Posts";
 import User from "../../components/User";
 import { selectIsAuth } from "../../store/selectors";
+import { IUser } from "../../types/IUser";
 
 export const Profile = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser>(null);
   const { userId } = useParams();
   const token = useSelector(selectIsAuth);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -42,15 +43,15 @@ export const Profile = () => {
         justifyContent="center"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <User userId={userId} picturePath={user.picturePath} />
+          <User userId={userId} picturePath={user?.picturePath} />
           <Box m="2rem 0" />
-          <FriendList userId={userId} />
+          <FriendList />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <MyPost picturePath={user.picturePath} />
+          <MyPost picturePath={user?.picturePath} />
           <Box m="2rem 0" />
           <Posts userId={userId} isProfile />
         </Box>

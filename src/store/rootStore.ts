@@ -1,8 +1,10 @@
 import {
   Action,
+  AnyAction,
   configureStore,
   createAction,
   ThunkAction,
+  ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { persistStore } from "redux-persist";
@@ -41,5 +43,7 @@ export type AppThunk<T = void> = ThunkAction<
   null,
   Action<string>
 >;
+
+export type TypedDispatch = ThunkDispatch<RootState, any, AnyAction>;
 
 setupListeners(store.dispatch);
