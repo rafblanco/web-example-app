@@ -16,7 +16,7 @@ import UserImage from "./UserImage";
 import Wrapper from "./Wrapper";
 
 type Props = {
-  userId?: number;
+  userId?: string;
   picturePath?: string;
 };
 
@@ -41,21 +41,13 @@ const User = ({ userId, picturePath }: Props) => {
 
   useEffect(() => {
     getUser();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!user) {
     return null;
   }
 
-  const {
-    firstName,
-    lastName,
-    location,
-    occupation,
-    viewedProfile,
-    impressions,
-    friends,
-  } = user;
+  const { firstName, lastName, viewedProfile, friends } = user;
 
   return (
     <Wrapper>
@@ -80,24 +72,13 @@ const User = ({ userId, picturePath }: Props) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={medium}>
+              {friends?.length ?? 0} friends
+            </Typography>
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />
       </FlexBetween>
-
-      <Divider />
-
-      <Box p="1rem 0">
-        <Box display="flex" alignItems="center" gap="1rem" mb="0.5rem">
-          <LocationOnOutlined fontSize="large" sx={{ color: main }} />
-          <Typography color={medium}>{location}</Typography>
-        </Box>
-        <Box display="flex" alignItems="center" gap="1rem">
-          <WorkOutlineOutlined fontSize="large" sx={{ color: main }} />
-          <Typography color={medium}>{occupation}</Typography>
-        </Box>
-      </Box>
 
       <Divider />
 
@@ -111,7 +92,7 @@ const User = ({ userId, picturePath }: Props) => {
         <FlexBetween>
           <Typography color={medium}>Impressions of your post</Typography>
           <Typography color={main} fontWeight="500">
-            {impressions}
+            0
           </Typography>
         </FlexBetween>
       </Box>
